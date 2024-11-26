@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.nus.iss.vttp5a_ssf_day13hw.model.Product;
@@ -32,8 +34,14 @@ public class ProductController {
 
     @GetMapping("/buy/{id}")
     public String buyProduct(@PathVariable String id) {
-        System.out.println(id);
+        // System.out.println(id);
         Product productFound = pdtService.findById(id);
+
+        // if (productFound.getQuantity() == 0){
+        //     ObjectError error = new ObjectError("negQty", "The product you wish to buy is sold out!");
+        //     result.addError(error);
+        //     return "redirect:/products";
+        // }
         pdtService.saveProductfile(productFound);
 
         return "redirect:/products";
